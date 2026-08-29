@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abishek Jeyaraj - Cybersecurity Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            cursive: ['Caveat', 'cursive'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+          },
+          colors: {
+            'text-dark': '#111111',
+            'accent-orange': '#F95738', // Playful orange
+            'card-grey': '#222222',
+            'sky-light': '#B0D6F1',
+            'sky-dark': '#70B0E5',
+          },
+          boxShadow: {
+            'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            'floating': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #70B0E5 0%, #B0D6F1 100%);
+      background-attachment: fixed;
+    }
+    
+    /* Cloud shapes for background */
+    .cloud {
+      position: absolute;
+      background: white;
+      border-radius: 200px;
+      filter: blur(15px);
+      opacity: 0.8;
+      z-index: 0;
+    }
+    
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    .cloud-1 { width: 300px; height: 100px; top: 15%; left: -5%; }
+    .cloud-1::before { width: 120px; height: 120px; top: -50px; left: 40px; }
+    .cloud-1::after { width: 100px; height: 100px; top: -30px; left: 140px; }
+    
+    .cloud-2 { width: 400px; height: 120px; top: 40%; right: -10%; }
+    .cloud-2::before { width: 150px; height: 150px; top: -60px; left: 50px; }
+    .cloud-2::after { width: 130px; height: 130px; top: -40px; left: 180px; }
+    
+    /* Ruler Nav Styling */
+    .ruler-container {
+      background: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 9px,
+        #000 9px,
+        #000 10px
+      );
+      height: 6px;
+      width: 100%;
+      opacity: 0.3;
+    }
+    .ruler-container-tall {
+      background: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 99px,
+        #000 99px,
+        #000 100px
+      );
+      height: 12px;
+      width: 100%;
+      opacity: 0.3;
+      margin-top: -6px;
+    }
+  </style>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="min-h-screen text-text-dark font-sans overflow-x-hidden relative">
+
+  <!-- Clouds -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+
+  <!-- Header Nav (Ruler) -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#F4F4F0] border-b border-black h-12 flex flex-col justify-end">
+    <!-- Ticks -->
+    <div class="relative w-full h-full overflow-hidden">
+      <!-- Numbers and Nav Links -->
+      <div class="absolute top-1 left-0 right-0 flex justify-between px-10 text-[9px] font-mono font-bold text-black/40 hidden md:flex" style="width: 200%; max-width: 2000px;">
+        <span class="flex gap-4">100 <a href="#hero" class="text-black hover:text-accent-orange">Home</a></span>
+        <span class="flex gap-4">200 <a href="#about" class="text-black hover:text-accent-orange">About</a></span>
+        <span class="flex gap-4">300 <a href="#services" class="text-black hover:text-accent-orange">Services</a></span>
+        <span class="flex gap-4">400 <a href="#experience" class="text-black hover:text-accent-orange">Experience</a></span>
+        <span class="flex gap-4">500 <a href="#certifications" class="text-black hover:text-accent-orange">Certifications</a></span>
+        <span class="flex gap-4">600 <a href="#endorsements" class="text-black hover:text-accent-orange">Endorsements</a></span>
+        <span class="flex gap-4">700 <a href="#contact" class="text-black hover:text-accent-orange">Contact</a></span>
+        <span>800</span><span>900</span><span>1000</span><span>1100</span><span>1200</span><span>1300</span><span>1400</span><span>1500</span>
+      </div>
+      
+      <!-- Progress Bar Tracker -->
+      <div id="scroll-progress-container" class="absolute bottom-0 left-[200px] z-20 translate-y-1/2">
+        <div class="bg-accent-orange text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-black transform -translate-x-1/2 flex items-center justify-center">
+          <span id="scroll-percent">0%</span>
+        </div>
+      </div>
+      
+      <div class="ruler-container absolute bottom-0 left-0"></div>
+      <div class="ruler-container-tall absolute bottom-0 left-0"></div>
+    </div>
+    
+    <!-- Top elements overlay -->
+    <div class="absolute inset-0 flex items-center justify-between px-4 md:px-8 z-30 pointer-events-none">
+      <div class="pointer-events-auto flex items-center gap-2 bg-[#F4F4F0] pl-2 pr-4 py-1 rounded-r-full -ml-4 md:-ml-8 border-r border-black shadow-[4px_0_10px_rgba(0,0,0,0.05)]">
+        <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+        </div>
+        <a href="#top" class="font-sans font-black text-xs tracking-widest uppercase">Abishek Jeyaraj</a>
+      </div>
+      
+      <div class="pointer-events-auto flex items-center gap-3 bg-[#F4F4F0] px-4 py-1.5 rounded-l-full -mr-4 md:-mr-8 border-l border-black shadow-[-4px_0_10px_rgba(0,0,0,0.05)]">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span class="font-mono text-[10px] font-bold tracking-widest uppercase">Live <span id="clock-ticker"></span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+    </div>
+  </header>
+
+  <main id="main-content" class="flex-grow z-10 relative pt-16 pb-20">
+    <!-- Hero Section -->
+    <section id="hero" class="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 flex flex-col gap-6">
+      <!-- "a little about us" eyebrow -->
+      <div class="text-center w-full mb-2">
+        <span class="font-cursive text-accent-orange text-4xl transform -rotate-2 inline-block">a little about us</span>
+        <h1 class="font-sans font-black text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-tighter text-text-dark mt-2">WHAT'S UP</h1>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-6 mt-6 md:mt-10">
+        
+        <!-- Main Large Card -->
+        <div class="bg-white rounded-[2rem] p-8 md:p-16 shadow-card flex flex-col justify-between relative min-h-[400px]">
+          <span class="absolute top-6 right-8 md:top-8 md:right-8 font-mono text-[10px] font-bold text-gray-400 tracking-widest uppercase">Overview</span>
+          
+          <div class="mt-8 md:mt-4">
+            <!-- Quote Icon -->
+            <div class="text-accent-orange mb-6">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L16.41 14.92c-1.894-.486-3.323-2.126-3.323-4.14C13.087 8.163 15.228 6 17.869 6c2.64 0 4.782 2.163 4.782 4.78 0 4.237-3.155 8.718-6.177 10.22H14.017zM5.352 21L7.746 14.92c-1.894-.486-3.323-2.126-3.323-4.14C4.423 8.163 6.564 6 9.205 6c2.64 0 4.782 2.163 4.782 4.78 0 4.237-3.155 8.718-6.177 10.22H5.352z"/></svg>
+            </div>
+            
+            <h2 class="font-sans font-black text-3xl md:text-[3.5rem] leading-[1.1] tracking-tight text-text-dark mb-6 md:mb-8">
+              Seeking an internship in software <span class="text-accent-orange">and cybersecurity?</span>
+            </h2>
+            
+            <p class="font-sans text-lg md:text-2xl text-gray-600 font-medium leading-relaxed max-w-2xl">
+              That drive is the whole job. <span class="font-bold text-text-dark">One student</span> doing full-stack development, cloud security, and monitoring for challenges that refuse to look ordinary.
+            </p>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-12 md:mt-16 pt-8 border-t border-gray-100 gap-4">
+            <span class="font-mono text-[10px] md:text-xs font-bold text-gray-400 tracking-widest uppercase">Abishek Jeyaraj, Since 2024</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+              <span class="font-mono text-[10px] font-bold text-green-500 tracking-widest uppercase">Available Now</span>
+            </div>
+          </div>
+
+          <!-- Custom Cursor Graphic -->
+          <div class="absolute right-12 bottom-40 animate-bounce pointer-events-none hidden lg:block">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="#3B82F6"/></svg>
+            <div class="bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full absolute top-6 left-4 shadow-md">You</div>
+          </div>
+        </div>
+
+        <!-- Right Column: Metrics & Capabilities -->
+        <div class="flex flex-col gap-6">
+          
+          <!-- Metrics Card -->
+          <div class="bg-card-grey rounded-[2rem] p-8 md:p-10 shadow-card flex flex-col justify-between relative text-white flex-grow">
+            <span class="absolute top-6 right-8 font-mono text-[9px] font-bold text-gray-500 tracking-widest uppercase">Metrics</span>
+            
+            <div class="flex flex-col gap-6 md:gap-8 mt-8">
+              <!-- Metric 1 -->
+              <div class="flex items-center justify-between border-b border-gray-700/50 pb-4 md:pb-6">
+                <div class="flex items-baseline gap-1">
+                  <span class="font-sans font-black text-4xl md:text-5xl tracking-tighter">14</span>
+                  <span class="font-sans font-black text-2xl md:text-3xl text-accent-orange">+</span>
+                </div>
+                <span class="font-mono text-[9px] md:text-[10px] font-bold tracking-widest text-right text-gray-400 leading-snug">CTFs<br/>COMPLETED</span>
+              </div>
+              
+              <!-- Metric 2 -->
+              <div class="flex items-center justify-between border-b border-gray-700/50 pb-4 md:pb-6">
+                <div class="flex items-baseline gap-1">
+                  <span class="font-sans font-black text-4xl md:text-5xl tracking-tighter">99</span>
+                  <span class="font-sans font-black text-2xl md:text-3xl text-accent-orange">%</span>
+                </div>
+                <span class="font-mono text-[9px] md:text-[10px] font-bold tracking-widest text-right text-gray-400 leading-snug">SYSTEM<br/>UPTIME</span>
+              </div>
+              
+              <!-- Metric 3 -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-baseline gap-1">
+                  <span class="font-sans font-black text-4xl md:text-5xl tracking-tighter">22</span>
+                  <span class="font-sans font-black text-2xl md:text-3xl text-accent-orange">h</span>
+                </div>
+                <span class="font-mono text-[9px] md:text-[10px] font-bold tracking-widest text-right text-gray-400 leading-snug">AVG RESOLUTION<br/>TURNAROUND</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Capabilities Card -->
+          <div class="bg-[#F4F4F0] rounded-[2rem] p-8 md:p-10 shadow-card relative border border-gray-200">
+            <span class="absolute top-6 right-8 font-mono text-[9px] font-bold text-gray-400 tracking-widest uppercase">Capabilities</span>
+            
+            <div class="flex flex-wrap gap-2 md:gap-3 mt-10">
+              <div class="px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-black bg-white flex items-center gap-2 font-sans font-medium text-xs md:text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
+                Blue Team
+              </div>
+              <div class="px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-black bg-white flex items-center gap-2 font-sans font-medium text-xs md:text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                Cloud Sec
+              </div>
+              <div class="px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-black bg-white flex items-center gap-2 font-sans font-medium text-xs md:text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                Full-Stack
+              </div>
+              <div class="px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-black bg-white flex items-center gap-2 font-sans font-medium text-xs md:text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                Network
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Incident Log (Chat Thread) -->
+    <section id="incident-log" class="py-24 relative">
+      <div class="max-w-[700px] mx-auto px-4 md:px-8">
+        
+        <div class="bg-white rounded-3xl shadow-floating p-6 md:p-10 incident-chat-container border border-gray-100">
+          
+          <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-8">
+            <span class="font-mono text-[9px] font-bold text-accent-orange tracking-widest uppercase">01 · Refine</span>
+            <span class="font-mono text-[9px] font-bold text-gray-400 tracking-widest uppercase">System Log</span>
+          </div>
+          
+          <div class="flex flex-col gap-6 md:gap-8">
+            
+            <!-- System Message -->
+            <div class="flex justify-start gap-4 chat-bubble opacity-0 translate-y-4">
+              <div class="w-8 h-8 rounded-full bg-accent-orange flex items-center justify-center flex-shrink-0 text-white shadow-md">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </div>
+              <div class="flex flex-col gap-1 max-w-[85%] md:max-w-[80%]">
+                <div class="flex items-baseline gap-2">
+                  <span class="font-sans font-bold text-sm text-text-dark">System</span>
+                  <span class="font-mono text-[9px] text-gray-400">04:22 UTC</span>
+                </div>
+                <div class="bg-gray-100/80 text-text-dark px-4 py-3 rounded-2xl rounded-tl-sm font-sans text-sm font-medium">
+                  ALERT: Unauthorized access attempt detected on port 22. Multiple failed SSH keys from 192.168.1.105.
+                </div>
+              </div>
+            </div>
+            
+            <!-- My Message -->
+            <div class="flex justify-start gap-4 chat-bubble opacity-0 translate-y-4">
+              <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 text-white shadow-md text-xs font-bold">
+                Y
+              </div>
+              <div class="flex flex-col gap-1 max-w-[85%] md:max-w-[80%] relative">
+                <div class="flex items-baseline gap-2">
+                  <span class="font-sans font-bold text-sm text-text-dark">You</span>
+                  <span class="font-mono text-[9px] text-gray-400">04:23 UTC</span>
+                </div>
+                <div class="bg-gray-100/80 text-text-dark px-4 py-3 rounded-2xl rounded-tl-sm font-sans text-sm font-medium">
+                  Acknowledged. Pulling Wireshark captures for 192.168.1.105 now. Checking for lateral movement. 🔍
+                </div>
+                
+                <div class="absolute -right-12 bottom-0 animate-bounce pointer-events-none hidden md:block">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="#3B82F6"/></svg>
+                  <div class="bg-blue-500 text-white text-[8px] font-bold px-1.5 py-[1px] rounded-full absolute top-4 left-3 shadow-md">You</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between border-b border-gray-100 pb-4 mt-4 mb-4">
+              <span class="font-mono text-[9px] font-bold text-accent-orange tracking-widest uppercase">02 · Ship It</span>
+            </div>
+            
+            <!-- System Message -->
+            <div class="flex justify-start gap-4 chat-bubble opacity-0 translate-y-4">
+              <div class="w-8 h-8 rounded-full bg-accent-orange flex items-center justify-center flex-shrink-0 text-white shadow-md">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </div>
+              <div class="flex flex-col gap-1 max-w-[85%] md:max-w-[80%]">
+                <div class="flex items-baseline gap-2">
+                  <span class="font-sans font-bold text-sm text-text-dark">System</span>
+                  <span class="font-mono text-[9px] text-gray-400">04:25 UTC</span>
+                </div>
+                <div class="bg-gray-100/80 text-text-dark px-4 py-3 rounded-2xl rounded-tl-sm font-sans text-sm font-medium flex items-center gap-2">
+                  Traffic isolated. Threat neutralized. ✅ 
+                  <span class="bg-white border border-gray-200 rounded px-2 py-1 text-[10px] font-mono flex items-center gap-1"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> CASE_04.md</span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 max-w-[1400px] mx-auto px-4 md:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="font-cursive text-accent-orange text-3xl transform -rotate-2 inline-block mb-2">behind the screen</span>
+          <h2 class="font-sans font-black text-5xl md:text-7xl leading-[0.9] tracking-tighter text-text-dark">ABOUT ME</h2>
+        </div>
+        <p class="font-sans text-gray-500 font-medium max-w-sm text-sm md:text-base leading-relaxed">
+          I'm a computer science engineering student specializing in full-stack development and cybersecurity.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
+        
+        <!-- Big Intro Card -->
+        <div class="md:col-span-8 bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-sm flex flex-col gap-6 relative overflow-hidden group hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 group-hover:bg-blue-100 transition-colors"></div>
+          
+          <h3 class="font-sans font-black text-3xl md:text-5xl tracking-tight text-text-dark max-w-2xl relative z-10">
+            An aspiring engineer <br/>
+            <span class="text-blue-600">who thinks in systems.</span>
+          </h3>
+          
+          <div class="flex flex-col gap-4 text-gray-600 font-medium text-lg max-w-2xl relative z-10 mt-auto pt-8">
+            <p>
+              Currently studying B.E. CSE (2027), I have hands-on experience building full-stack web applications, AI-driven tools, and secure systems.
+            </p>
+            <p>
+              Recently completed a full-stack development internship where I designed RESTful APIs and optimized frontend interfaces. Now seeking opportunities in software engineering or cybersecurity.
+            </p>
+          </div>
+        </div>
+
+        <!-- Photo Card -->
+        <div class="md:col-span-4 bg-white border border-gray-200 rounded-[2rem] p-4 shadow-sm group hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col h-[400px] md:h-auto">
+          <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative">
+            <img src="./abishek.jpeg" alt="Abishek Profile Portrait" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div class="absolute inset-0 border border-black/10 rounded-[1.5rem]"></div>
+            
+            <!-- Floating tag -->
+            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md px-4 py-3 rounded-xl border border-white flex items-center justify-between shadow-lg">
+              <span class="font-sans font-bold text-sm text-text-dark">Abishek Jeyaraj</span>
+              <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Services & Experience Section -->
+    <section id="services" class="py-24 max-w-[1400px] mx-auto px-4 md:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="font-cursive text-accent-orange text-3xl transform -rotate-2 inline-block mb-2">what i do</span>
+          <h2 class="font-sans font-black text-5xl md:text-7xl leading-[0.9] tracking-tighter text-text-dark">CAPABILITIES</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Service 1 -->
+        <div class="bg-[#F4F4F0] rounded-[2rem] p-8 md:p-12 hover:-translate-y-1 hover:shadow-sm transition-all duration-300">
+          <div class="w-16 h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-8 shadow-sm">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-600"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          </div>
+          <h3 class="font-sans font-black text-3xl mb-4 text-text-dark">Full-Stack <br/>Development</h3>
+          <p class="font-sans text-gray-600 font-medium text-lg leading-relaxed mb-6">
+            Building robust web applications using HTML, CSS, JavaScript, and modern backend frameworks like Python/FastAPI and Node.js. Focus on scalable REST APIs and secure architecture.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-white text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">FastAPI</span>
+            <span class="px-3 py-1 bg-white text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">React</span>
+            <span class="px-3 py-1 bg-white text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">PostgreSQL</span>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-blue-600 rounded-[2rem] p-8 md:p-12 text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300">
+          <div class="w-16 h-16 rounded-full bg-blue-500 border border-blue-400 flex items-center justify-center mb-8 shadow-sm">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3 class="font-sans font-black text-3xl mb-4 text-white">Security <br/>& Systems</h3>
+          <p class="font-sans text-blue-100 font-medium text-lg leading-relaxed mb-6">
+            Implementing robust network defense, conducting traffic analysis, and developing vulnerability scanners. Experienced with SOC incident workflows and threat hunting methodologies.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-blue-500 text-white font-sans text-[11px] font-bold uppercase tracking-wider rounded-full border border-blue-400">AWS</span>
+            <span class="px-3 py-1 bg-blue-500 text-white font-sans text-[11px] font-bold uppercase tracking-wider rounded-full border border-blue-400">Networking</span>
+            <span class="px-3 py-1 bg-blue-500 text-white font-sans text-[11px] font-bold uppercase tracking-wider rounded-full border border-blue-400">Security Analytics</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Experience Timeline -->
+      <div class="mt-16 bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-sm">
+        <h3 class="font-sans font-black text-3xl md:text-4xl tracking-tight text-text-dark mb-10">Experience</h3>
+        
+        <div class="flex flex-col">
+          <!-- Role 1 -->
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 border-b border-gray-100 pb-8 mb-8">
+            <div class="font-sans font-bold text-lg text-gray-800">
+              Life Changer Ind
+              <div class="text-sm font-medium text-gray-500 mt-1">2025</div>
+            </div>
+            <div>
+              <h4 class="font-sans font-black text-2xl text-text-dark mb-2">Full Stack Developer Intern</h4>
+              <p class="font-sans text-gray-600 font-medium text-lg leading-relaxed">
+                Developed and maintained web application features using modern frameworks. Collaborated with teams to design RESTful API endpoints and optimized performance to support over 10k requests.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Role 2 -->
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
+            <div class="font-sans font-bold text-lg text-gray-800">
+              Codsoft
+              <div class="text-sm font-medium text-gray-500 mt-1">2024</div>
+            </div>
+            <div>
+              <h4 class="font-sans font-black text-2xl text-text-dark mb-2">Python Developer Intern</h4>
+              <p class="font-sans text-gray-600 font-medium text-lg leading-relaxed">
+                Developed core backend logic using Python. Created automated scripts for data processing and integrated external APIs to enhance application functionality.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Works Section -->
+    <section id="works" class="py-24 max-w-[1400px] mx-auto px-4 md:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="font-cursive text-accent-orange text-3xl transform -rotate-2 inline-block mb-2">featured works</span>
+          <h2 class="font-sans font-black text-5xl md:text-7xl leading-[0.9] tracking-tighter text-text-dark">CASE STUDIES</h2>
+        </div>
+        <p class="font-sans text-gray-500 font-medium max-w-sm text-sm md:text-base leading-relaxed">
+          A selection of projects where I've built secure, scalable, and resilient systems.
+        </p>
+      </div>
+
+      <div class="flex flex-col border-t border-gray-200">
+        
+        <!-- Project 1 -->
+        <a href="#" class="group block border-b border-gray-200 py-8 md:py-12 hover:bg-gray-50 transition-colors">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr_auto] gap-6 md:gap-12 items-center">
+            <h3 class="font-sans font-black text-3xl md:text-5xl tracking-tight text-text-dark group-hover:text-blue-600 transition-colors">
+              AI X-Ray <br/>Analysis
+            </h3>
+            
+            <div class="flex flex-col gap-4">
+              <p class="font-sans text-gray-600 font-medium max-w-xl text-lg">
+                Built an AI-powered system that analyzes X-ray images and predicts medical conditions using machine learning algorithms.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">Node.js</span>
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">Python</span>
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">Machine Learning</span>
+              </div>
+            </div>
+            
+            <div class="hidden md:flex w-16 h-16 rounded-full bg-white border border-gray-200 items-center justify-center text-gray-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-sm transform group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="#" class="group block border-b border-gray-200 py-8 md:py-12 hover:bg-gray-50 transition-colors">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr_auto] gap-6 md:gap-12 items-center">
+            <h3 class="font-sans font-black text-3xl md:text-5xl tracking-tight text-text-dark group-hover:text-blue-600 transition-colors">
+              Web Vuln <br/>Scanner
+            </h3>
+            
+            <div class="flex flex-col gap-4">
+              <p class="font-sans text-gray-600 font-medium max-w-xl text-lg">
+                Full-stack security scanner with a FastAPI backend handling concurrent real-time scan requests and an interactive dashboard.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">Django</span>
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">FastAPI</span>
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">PostgreSQL</span>
+              </div>
+            </div>
+            
+            <div class="hidden md:flex w-16 h-16 rounded-full bg-white border border-gray-200 items-center justify-center text-gray-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-sm transform group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 3 -->
+        <a href="#" class="group block border-b border-gray-200 py-8 md:py-12 hover:bg-gray-50 transition-colors">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr_auto] gap-6 md:gap-12 items-center">
+            <h3 class="font-sans font-black text-3xl md:text-5xl tracking-tight text-text-dark group-hover:text-blue-600 transition-colors">
+              Saree <br/>Dealership
+            </h3>
+            
+            <div class="flex flex-col gap-4">
+              <p class="font-sans text-gray-600 font-medium max-w-xl text-lg">
+                Responsive e-commerce web app featuring product browsing, secure user authentication, and a fully functional checkout system.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">Python</span>
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">REST APIs</span>
+                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 font-sans text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">SQL</span>
+              </div>
+            </div>
+            
+            <div class="hidden md:flex w-16 h-16 rounded-full bg-white border border-gray-200 items-center justify-center text-gray-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-sm transform group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Toolkit Section -->
+    <section id="toolkit" class="py-20 border-b border-card-border">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="reveal flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent mb-16">
+          <span class="px-2 py-1 bg-accent/10 border border-accent/20 rounded-sm">[TOOLKIT.CFG]</span>
+          <div class="section-line w-10 h-px bg-accent opacity-50 origin-left scale-x-0"></div>
+          <span class="opacity-70">TECHNICAL_STACK</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div
+            class="toolkit-card reveal border border-card-border bg-card-bg/30 rounded-xl p-6 flex flex-col justify-between hover:border-accent/40 shadow-sm transition-colors duration-300 min-h-[220px]">
+            <div>
+              <div class="flex items-center justify-between border-b border-card-border/50 pb-3 mb-4">
+                <span class="font-mono text-[10px] tracking-widest text-accent font-bold">BLOCK T.01</span>
+                <div class="font-mono text-xs tracking-wider text-accent select-none">◆◆◆◆◆<span
+                    class="text-muted/40"></span></div>
+              </div>
+              <h3 class="font-serif text-base font-bold text-text-base leading-tight">Tools &amp; Platforms</h3>
+              <p class="font-sans text-[11px] text-muted leading-relaxed mt-2 mb-4">Essential tools and platforms for
+                version control, local server environments, and API testing.</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-card-border/40">
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">Git</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">GitHub</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">XAMPP</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">Postman</span>
+            </div>
+          </div>
+
+          <div
+            class="toolkit-card reveal border border-card-border bg-card-bg/30 rounded-xl p-6 flex flex-col justify-between hover:border-accent/40 shadow-sm transition-colors duration-300 min-h-[220px]">
+            <div>
+              <div class="flex items-center justify-between border-b border-card-border/50 pb-3 mb-4">
+                <span class="font-mono text-[10px] tracking-widest text-accent font-bold">BLOCK T.02</span>
+                <div class="font-mono text-xs tracking-wider text-accent select-none">◆◆◆◆<span
+                    class="text-muted/40">◇</span></div>
+              </div>
+              <h3 class="font-serif text-base font-bold text-text-base leading-tight">Programming Languages</h3>
+              <p class="font-sans text-[11px] text-muted leading-relaxed mt-2 mb-4">Core languages used for building
+                dynamic frontends, robust backends, and managing databases.</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-card-border/40">
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">Python</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">JavaScript</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">HTML5</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">CSS3</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">SQL</span>
+            </div>
+          </div>
+
+          <div
+            class="toolkit-card reveal border border-card-border bg-card-bg/30 rounded-xl p-6 flex flex-col justify-between hover:border-accent/40 shadow-sm transition-colors duration-300 min-h-[220px]">
+            <div>
+              <div class="flex items-center justify-between border-b border-card-border/50 pb-3 mb-4">
+                <span class="font-mono text-[10px] tracking-widest text-accent font-bold">BLOCK T.03</span>
+                <div class="font-mono text-xs tracking-wider text-accent select-none">◆◆◆◆<span
+                    class="text-muted/40">◇</span></div>
+              </div>
+              <h3 class="font-serif text-base font-bold text-text-base leading-tight">Frameworks &amp; Core Concepts
+              </h3>
+              <p class="font-sans text-[11px] text-muted leading-relaxed mt-2 mb-4">Modern frameworks for rapid
+                development and foundational concepts in full-stack architecture.</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-card-border/40">
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">FastAPI</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">Bootstrap</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">Full-Stack
+                Development</span>
+              <span
+                class="bg-accent/5 border border-card-border font-mono text-[9px] uppercase tracking-wider text-muted px-2 py-0.5 rounded-md">Web
+                Security</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-20 border-b border-card-border">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="reveal flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent mb-16">
+          <span class="px-2 py-1 bg-accent/10 border border-accent/20 rounded-sm">[CERTIFICATIONS.LOG]</span>
+          <div class="section-line w-10 h-px bg-accent opacity-50 origin-left scale-x-0"></div>
+          <span class="opacity-70">CREDENTIALS</span>
+        </div>
+        <div class="reveal flex flex-col md:flex-row gap-8 items-center">
+          <div
+            class="border border-card-border bg-card-bg/20 rounded-xl overflow-hidden backdrop-blur-sm max-w-2xl w-full">
+            <img src="./certificate.jpeg" alt="Certification"
+              class="w-full h-auto object-cover border-b border-card-border/60 hover:opacity-90 transition-opacity duration-300" />
+            <div class="p-6">
+              <h3 class="font-serif text-lg font-bold text-text-base leading-tight mb-2">Professional Certification</h3>
+              <p class="font-sans text-[13px] text-muted leading-relaxed">Demonstrated expertise and commitment to
+                professional growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Endorsements Section -->
+    <section id="endorsements" class="py-24 border-b border-card-border bg-card-bg/10">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="reveal flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent mb-16">
+          <span class="px-2 py-1 bg-accent/10 border border-accent/20 rounded-sm">[ENDORSEMENTS.TXT]</span>
+          <div class="section-line w-10 h-px bg-accent opacity-50 origin-left scale-x-0"></div>
+          <span class="opacity-70">SOCIAL_PROOF</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="reveal border border-card-border bg-background p-8 md:p-12 rounded-sm shadow-sm hover:border-accent/30 transition-colors duration-300 relative">
+            <span class="absolute -top-3 left-8 font-serif text-5xl text-accent/20">"</span>
+            <p class="font-sans text-base md:text-lg italic text-text-base leading-relaxed mb-6">Abishek consistently demonstrated a sharp eye for spotting vulnerabilities that others missed. His approach to securing our cloud infrastructure was methodical and highly effective.</p>
+            <div class="flex items-center gap-4 border-t border-card-border/50 pt-4">
+              <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold font-sans">SP</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-sm text-text-base">Senior Product Engineer</span>
+                <span class="font-mono text-[9px] text-muted tracking-widest uppercase">Life Changer Ind</span>
+              </div>
+            </div>
+          </div>
+          <div class="reveal border border-card-border bg-background p-8 md:p-12 rounded-sm shadow-sm hover:border-accent/30 transition-colors duration-300 relative">
+            <span class="absolute -top-3 left-8 font-serif text-5xl text-accent/20">"</span>
+            <p class="font-sans text-base md:text-lg italic text-text-base leading-relaxed mb-6">Incredibly fast learner. Handled our full-stack API integration while independently hardening the backend against common OWASP risks. A highly valuable team member.</p>
+            <div class="flex items-center gap-4 border-t border-card-border/50 pt-4">
+              <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold font-sans">TL</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-sm text-text-base">Technical Lead</span>
+                <span class="font-mono text-[9px] text-muted tracking-widest uppercase">Codsoft Internship</span>
+              </div>
+            </div>
+          </div>
+        </    <!-- Contact Section -->
+    <section id="contact" class="py-24 max-w-[1400px] mx-auto px-4 md:px-8">
+      
+      <div class="bg-blue-600 rounded-[2rem] p-8 md:p-16 text-white text-center relative overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300">
+        <!-- Abstract shapes -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-blue-400 rounded-full blur-3xl opacity-50 translate-x-1/3 translate-y-1/3"></div>
+        
+        <div class="relative z-10 flex flex-col items-center gap-6">
+          <span class="font-cursive text-blue-200 text-3xl transform -rotate-2 inline-block">let's talk</span>
+          <h2 class="font-sans font-black text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white">
+            READY TO <br/>SECURE IT?
+          </h2>
+          <p class="font-sans text-blue-100 font-medium text-lg md:text-xl max-w-xl mx-auto mt-2">
+            Available for internships, technical roles, or just a chat about systems and security.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mt-8">
+            <a href="mailto:abishekjeyaraj334@gmail.com" class="px-8 py-4 bg-white text-blue-600 font-sans font-black text-sm uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg">
+              Send an Email
+            </a>
+            <a href="https://linkedin.com/in/abishek-jeyaraj-67d" target="_blank" class="px-8 py-4 bg-blue-700 text-white font-sans font-black text-sm uppercase tracking-widest rounded-full hover:bg-blue-800 hover:scale-105 transition-all border border-blue-500">
+              LinkedIn Profile
+            </a>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+
+  </main>
+
+  <footer class="z-10 relative bg-[#F4F4F0] border-t border-gray-200 py-12 md:py-16">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+        </div>
+        <span class="font-sans font-black text-xl tracking-tight text-black">ABISHEK JEYARAJ</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-6 font-sans font-bold text-xs uppercase tracking-widest text-gray-400">
+        <a href="https://github.com/AbishekJeyaraj" target="_blank" class="hover:text-black transition-colors">GitHub</a>
+        <a href="https://linkedin.com/in/abishek-jeyaraj-67d" target="_blank" class="hover:text-black transition-colors">LinkedIn</a>
+        <a href="#top" class="hover:text-black transition-colors">Back to Top ↑</a>
+      </div>
+      
+    </div>
+  </footer>
+
+  <script src="script.js?v=2" defer></script>
+</body>
+</html>
