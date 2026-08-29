@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "npm run build && aws s3 sync out/ s3://abishekjeyaraj.site --delete"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
