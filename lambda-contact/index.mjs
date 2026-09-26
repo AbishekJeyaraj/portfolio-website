@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+
 
 export const handler = async (event) => {
   console.log('Received event:', JSON.stringify(event));
@@ -51,31 +51,33 @@ export const handler = async (event) => {
       };
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
       },
+      body: JSON.stringify({
+        from: 'Contact Form <onboarding@resend.dev>',
+        to: [process.env.EMAIL_USER],
+        reply_to: email,
+        subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
+        html: `
+          <h3>New Contact Form Submission</h3>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Subject:</strong> ${subject}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message.replace(/\n/g, '<br>')}</p>
+        `
+      })
     });
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      replyTo: email,
-      subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `,
-    };
-
-    await transporter.sendMail(mailOptions);
+    if (!res.ok) {
+      const errorData = await res.text();
+      console.error('Resend API error:', errorData);
+      throw new Error(`Resend API error: ${res.status}`);
+    }
 
     return {
       statusCode: 200,

@@ -80,7 +80,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-sans font-black text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tighter text-white mb-6 uppercase drop-shadow-2xl"
+            className="font-sans font-black text-5xl md:text-7xl lg:text-9xl leading-[0.9] tracking-tighter text-white mb-6 uppercase drop-shadow-2xl"
           >
             Abishek<br />Jeyaraj
           </motion.h1>

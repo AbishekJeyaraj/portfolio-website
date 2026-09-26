@@ -49,7 +49,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative glass p-8 rounded-[2rem] hover:border-accent/50 transition-all duration-700 hover:-translate-y-2 flex flex-col h-full overflow-hidden"
+              className="group relative glass p-6 md:p-8 rounded-[2rem] hover:border-accent/50 transition-all duration-700 hover:-translate-y-2 flex flex-col h-full overflow-hidden"
             >
               {/* Subtle glow on hover */}
               <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full blur-[60px] group-hover:bg-accent/15 transition-colors duration-700 pointer-events-none" />

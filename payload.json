@@ -1,0 +1,1 @@
+{"requestContext":{"http":{"method":"POST"}},"body":"{\"name\":\"test\",\"email\":\"test@test.com\",\"subject\":\"test\",\"message\":\"test\"}"}

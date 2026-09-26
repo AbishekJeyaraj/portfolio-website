@@ -20,7 +20,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-7 glass rounded-3xl p-8 md:p-12 relative overflow-hidden group"
+          className="lg:col-span-7 glass rounded-3xl p-6 md:p-12 relative overflow-hidden group"
         >
           {/* Subtle Glow */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] group-hover:bg-accent/10 transition-colors duration-700 pointer-events-none" />
@@ -73,7 +73,7 @@ export default function About() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.16, 1, 0.3, 1] }}
-              className="glass rounded-3xl p-8 flex items-center justify-between group hover:border-accent/30 transition-all duration-500 hover:scale-[1.02]"
+              className="glass rounded-3xl p-6 md:p-8 flex items-center justify-between group hover:border-accent/30 transition-all duration-500 hover:scale-[1.02]"
             >
               <div className="flex flex-col">
                 <span className="font-mono text-[10px] text-muted tracking-[0.2em] mb-3 uppercase font-bold">{stat.label}</span>

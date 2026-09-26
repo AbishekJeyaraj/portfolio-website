@@ -3,10 +3,10 @@ $ErrorActionPreference = "Continue"
 # 1. Read .env.local variables
 $envContent = Get-Content "..\.env.local" -Raw
 if ($envContent -match 'EMAIL_USER=(.*)') { $emailUser = $Matches[1].Trim() }
-if ($envContent -match 'EMAIL_PASS=(.*)') { $emailPass = $Matches[1].Trim() }
+if ($envContent -match 'RESEND_API_KEY=(.*)') { $resendApiKey = $Matches[1].Trim() }
 
-if (-not $emailUser -or -not $emailPass) {
-    Write-Error "EMAIL_USER or EMAIL_PASS not found in .env.local"
+if (-not $emailUser -or -not $resendApiKey) {
+    Write-Error "EMAIL_USER or RESEND_API_KEY not found in .env.local"
     exit 1
 }
 
@@ -42,7 +42,7 @@ if (-not $roleArn) {
 
 # 4. Handle Lambda Function
 $functionName = "PortfolioContactAPI"
-$envString = "Variables={EMAIL_USER=$emailUser,EMAIL_PASS=$emailPass}"
+$envString = "Variables={EMAIL_USER=$emailUser,RESEND_API_KEY=$resendApiKey}"
 
 aws lambda get-function --function-name $functionName > $null 2>&1
 $functionExists = ($LASTEXITCODE -eq 0)
@@ -54,8 +54,8 @@ if ($functionExists) {
     Write-Host "Waiting for function update to complete..."
     Start-Sleep -Seconds 5
     
-    Write-Host "Updating environment variables..."
-    aws lambda update-function-configuration --function-name $functionName --environment $envString > $null
+    Write-Host "Updating environment variables and timeout..."
+    aws lambda update-function-configuration --function-name $functionName --environment $envString --timeout 15 > $null
 } else {
     Write-Host "Creating Lambda function $functionName..."
     aws lambda create-function `
@@ -64,7 +64,8 @@ if ($functionExists) {
         --handler index.handler `
         --role $roleArn `
         --zip-file fileb://function.zip `
-        --environment $envString > $null
+        --environment $envString `
+        --timeout 15 > $null
     
     Write-Host "Waiting for function creation to complete..."
     Start-Sleep -Seconds 5

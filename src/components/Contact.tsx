@@ -9,12 +9,12 @@ import MagneticButton from "./MagneticButton"
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" })
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "validation_error" | "server_error">("idle")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.name || !formData.email || !formData.message) {
-      setStatus("error")
+      setStatus("validation_error")
       return
     }
     
@@ -34,19 +34,19 @@ export default function Contact() {
         setFormData({ name: "", email: "", subject: "", message: "" })
         setTimeout(() => setStatus("idle"), 3000)
       } else {
-        setStatus("error")
+        setStatus("server_error")
         setTimeout(() => setStatus("idle"), 3000)
       }
     } catch (error) {
       console.error('Error sending message:', error)
-      setStatus("error")
+      setStatus("server_error")
       setTimeout(() => setStatus("idle"), 3000)
     }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    if (status === "error") setStatus("idle")
+    if (status === "validation_error" || status === "server_error") setStatus("idle")
   }
 
   return (
@@ -110,7 +110,7 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-8 glass p-8 md:p-12 rounded-[2rem] relative overflow-hidden">
+          <div className="lg:col-span-8 glass p-6 md:p-12 rounded-[2rem] relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
             
             <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-6">
@@ -158,9 +158,14 @@ export default function Contact() {
 
               <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4">
                 <div className="flex items-center gap-2 h-6">
-                  {status === "error" && (
+                  {status === "validation_error" && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-red-400 font-mono text-xs font-bold">
                       <AlertCircle className="w-4 h-4" /> Required fields missing.
+                    </motion.div>
+                  )}
+                  {status === "server_error" && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-red-400 font-mono text-xs font-bold">
+                      <AlertCircle className="w-4 h-4" /> Failed to send message.
                     </motion.div>
                   )}
                   {status === "success" && (
