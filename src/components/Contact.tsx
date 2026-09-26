@@ -21,7 +21,7 @@ export default function Contact() {
     setStatus("sending")
     
     try {
-      const response = await fetch('https://wrmosik6xpuwytwanpi2y3c5sy0wmmzi.lambda-url.ap-south-1.on.aws/', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
