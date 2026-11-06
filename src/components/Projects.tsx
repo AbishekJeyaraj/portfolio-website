@@ -64,7 +64,7 @@ const WORKS = [
     category: "Full-Stack & Frontend Engineering",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
     desc: "The portfolio website featuring scroll-driven animations, dark/light theme switching, interactive micro-interactions, responsive mobile drawer navigation, and accessible high-contrast design.",
-    link: "https://portfolio-website-zohar9.vercel.app",
+    link: "https://abishekjeyaraj.site",
     github: "https://github.com/AbishekJeyaraj/portfolio-website",
   },
 ]

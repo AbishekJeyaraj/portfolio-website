@@ -17,8 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abishekjeyaraj.site"),
   title: "Abishek Jeyaraj | Cybersecurity & Software Eng",
-  description: "Portfolio of Abishek Jeyaraj.",
+  description: "Portfolio of Abishek Jeyaraj - Cybersecurity Analyst & Software Developer.",
 }
 
 export const viewport: Viewport = {
