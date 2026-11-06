@@ -1,19 +1,21 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: #020202;
-  --color-surface: #0a0a0a;
-  --color-surface-hover: #121212;
-  --color-surface-glass: rgba(10, 10, 10, 0.4);
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: var(--theme-background);
+  --color-surface: var(--theme-surface);
+  --color-surface-hover: var(--theme-surface-hover);
+  --color-surface-glass: var(--theme-surface-glass);
   
-  --color-primary: #ffffff;
-  --color-secondary: #888888;
-  --color-muted: #444444;
-  --color-accent: #f2602c; /* Keeping the orange accent but can be customized */
-  --color-accent-glow: rgba(242, 96, 44, 0.5);
+  --color-primary: var(--theme-primary);
+  --color-secondary: var(--theme-secondary);
+  --color-muted: var(--theme-muted);
+  --color-accent: #e65251;
+  --color-accent-glow: rgba(230, 82, 81, 0.45);
   
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border: var(--theme-border);
+  --color-border-hover: var(--theme-border-hover);
   
   --font-sans: var(--font-sans), system-ui, sans-serif;
   --font-mono: var(--font-mono), monospace;
@@ -26,9 +28,156 @@
   100% { transform: translateX(-50%); }
 }
 
+/* ═══════ Light mode (Default / Reference Professional Studio Aesthetic) ═══════ */
+:root,
+html.light {
+  --theme-background: #e2e6ea;
+  --theme-surface: #ffffff;
+  --theme-surface-hover: #f1f4f8;
+  --theme-surface-glass: rgba(255, 255, 255, 0.85);
+  --theme-primary: #0f172a;
+  --theme-secondary: #475569;
+  --theme-muted: #64748b;
+  --theme-border: rgba(15, 23, 42, 0.12);
+  --theme-border-hover: rgba(15, 23, 42, 0.22);
+
+  --hero-card-bg: #edf1f5;
+  --hero-card-border: rgba(0, 0, 0, 0.08);
+  --hero-stage-bg: rgba(255, 255, 255, 0.4);
+  --hero-title-text: #0f172a;
+  --hero-subtitle-text: #334155;
+  --hero-body-text: #475569;
+  --hero-accent: #e65251;
+  --hero-accent-hover: #d94140;
+
+  --nav-bg: rgba(255, 255, 255, 0.72);
+  --nav-pill-bg: rgba(0, 0, 0, 0.04);
+  --nav-border: rgba(255, 255, 255, 0.8);
+  --nav-text: #475569;
+  --nav-text-active: #0f172a;
+  --mobile-menu-bg: rgba(255, 255, 255, 0.88);
+
+  /* iOS Glassmorphism (Light Mode) */
+  --ios-glass-bg: rgba(255, 255, 255, 0.78);
+  --ios-glass-border: rgba(255, 255, 255, 0.9);
+  --ios-glass-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03), inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  --ios-glass-blur: blur(28px) saturate(190%);
+  --ios-glass-pill-bg: rgba(0, 0, 0, 0.04);
+  --ios-glass-pill-border: rgba(0, 0, 0, 0.06);
+  --ios-glass-active-bg: rgba(255, 255, 255, 0.95);
+  --ios-glass-active-border: rgba(0, 0, 0, 0.06);
+  --ios-glass-active-shadow: 0 2px 10px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+  --ios-glass-text: #475569;
+  --ios-glass-text-hover: #0f172a;
+  --ios-glass-btn-bg: rgba(255, 255, 255, 0.85);
+  --ios-glass-btn-border: rgba(255, 255, 255, 0.95);
+  --ios-glass-btn-text: #0f172a;
+  --ios-sheet-bg: rgba(255, 255, 255, 0.88);
+
+  --section-bg: #e2e6ea;
+  --section-text: #0f172a;
+  --section-text-secondary: #475569;
+  --section-border: rgba(15, 23, 42, 0.12);
+  --section-surface: #ffffff;
+  --color-background: #e2e6ea;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1f4f8;
+  --color-surface-glass: rgba(255, 255, 255, 0.85);
+  --color-primary: #0f172a;
+  --color-secondary: #475569;
+  --color-muted: #64748b;
+  --color-border: rgba(15, 23, 42, 0.12);
+  --color-border-hover: rgba(15, 23, 42, 0.22);
+
+  --footer-card-bg: #edf1f5;
+  --footer-card-border: rgba(0, 0, 0, 0.08);
+  --footer-glow: radial-gradient(ellipse 110% 80% at 50% 105%, rgba(230, 82, 81, 0.22) 0%, rgba(240, 120, 110, 0.12) 42%, rgba(237, 241, 245, 0.85) 76%, #edf1f5 100%), linear-gradient(180deg, transparent 40%, rgba(230, 82, 81, 0.08) 100%);
+  --footer-giant-text: rgba(230, 82, 81, 0.16);
+  --footer-nav-link: #0f172a;
+  --footer-nav-link-hover: #e65251;
+  --footer-text-muted: #475569;
+}
+
 body {
-  background-color: var(--color-background);
-  color: var(--color-primary);
+  background-color: #e2e6ea;
+  color: #0f172a;
+}
+
+/* ═══════ Dark mode ═══════ */
+html.dark {
+  --theme-background: #0b0f14;
+  --theme-surface: #141b24;
+  --theme-surface-hover: #1c2633;
+  --theme-surface-glass: rgba(20, 27, 36, 0.75);
+  --theme-primary: #ffffff;
+  --theme-secondary: #94a3b8;
+  --theme-muted: #64748b;
+  --theme-border: rgba(255, 255, 255, 0.1);
+  --theme-border-hover: rgba(255, 255, 255, 0.2);
+
+  --hero-card-bg: #121820;
+  --hero-card-border: rgba(255, 255, 255, 0.08);
+  --hero-stage-bg: rgba(255, 255, 255, 0.035);
+  --hero-title-text: #f8fafc;
+  --hero-subtitle-text: #e2e8f0;
+  --hero-body-text: #94a3b8;
+  --hero-accent: #e65251;
+  --hero-accent-hover: #d94140;
+
+  --nav-bg: rgba(18, 22, 30, 0.68);
+  --nav-pill-bg: rgba(255, 255, 255, 0.06);
+  --nav-border: rgba(255, 255, 255, 0.12);
+  --nav-text: #94a3b8;
+  --nav-text-active: #ffffff;
+  --mobile-menu-bg: rgba(14, 18, 25, 0.88);
+
+  /* iOS Glassmorphism (Dark Mode) */
+  --ios-glass-bg: rgba(18, 22, 30, 0.68);
+  --ios-glass-border: rgba(255, 255, 255, 0.12);
+  --ios-glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.35);
+  --ios-glass-blur: blur(28px) saturate(190%);
+  --ios-glass-pill-bg: rgba(255, 255, 255, 0.06);
+  --ios-glass-pill-border: rgba(255, 255, 255, 0.08);
+  --ios-glass-active-bg: rgba(245, 158, 11, 0.18);
+  --ios-glass-active-border: rgba(245, 158, 11, 0.35);
+  --ios-glass-active-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --ios-glass-text: #94a3b8;
+  --ios-glass-text-hover: #ffffff;
+  --ios-glass-btn-bg: rgba(255, 255, 255, 0.1);
+  --ios-glass-btn-border: rgba(255, 255, 255, 0.18);
+  --ios-glass-btn-text: #ffffff;
+  --ios-sheet-bg: rgba(14, 18, 25, 0.84);
+
+  --section-bg: #0b0f14;
+  --section-text: #ffffff;
+  --section-text-secondary: #94a3b8;
+  --section-border: rgba(255, 255, 255, 0.08);
+  --section-surface: #141b24;
+  --color-background: #0b0f14;
+  --color-surface: #141b24;
+  --color-surface-hover: #1c2633;
+  --color-surface-glass: rgba(20, 27, 36, 0.7);
+  --color-primary: #ffffff;
+  --color-secondary: #94a3b8;
+  --color-muted: #64748b;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+
+  --footer-card-bg: #121820;
+  --footer-card-border: rgba(255, 255, 255, 0.08);
+  --footer-glow: radial-gradient(ellipse 110% 80% at 50% 105%, rgba(230, 82, 81, 0.38) 0%, rgba(150, 48, 48, 0.22) 42%, rgba(20, 24, 30, 0.85) 76%, #121820 100%), linear-gradient(180deg, transparent 40%, rgba(140, 40, 40, 0.12) 100%);
+  --footer-giant-text: rgba(230, 82, 81, 0.20);
+  --footer-nav-link: #ffffff;
+  --footer-nav-link-hover: #e65251;
+  --footer-text-muted: rgba(255, 255, 255, 0.65);
+}
+
+html.dark body {
+  background-color: #0b0f14;
+  color: #ffffff;
+}
+
+body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -36,7 +185,7 @@ body {
 
 ::selection {
   background-color: var(--color-accent);
-  color: var(--color-primary);
+  color: white;
 }
 
 /* Hide scrollbar for clean aesthetic */
@@ -46,11 +195,27 @@ body {
 }
 
 /* Custom Utilities for Premium Look */
+.text-primary {
+  color: var(--theme-primary) !important;
+}
+
+.text-secondary {
+  color: var(--theme-secondary) !important;
+}
+
+.text-muted {
+  color: var(--theme-muted) !important;
+}
+
+.border-border {
+  border-color: var(--theme-border) !important;
+}
+
 @utility glass {
-  background: var(--color-surface-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
+  background: var(--theme-surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--theme-border);
 }
 
 @utility text-gradient {
@@ -63,4 +228,79 @@ body {
 @utility pattern-dots {
   background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+.cyber-grid {
+  background-image: linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+}
+
+html.dark .cyber-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Theme Toggle Icons */
+.theme-icon-sun {
+  display: none;
+}
+.theme-icon-moon {
+  display: block;
+}
+html.dark .theme-icon-sun {
+  display: block;
+}
+html.dark .theme-icon-moon {
+  display: none;
+}
+
+/* Light mode overrides for sections below hero */
+html.light .glass {
+  background: rgba(240, 235, 230, 0.6);
+  border-color: rgba(26, 20, 18, 0.06);
+}
+
+html.light .text-gradient {
+  background-image: linear-gradient(to right, #1a1412, #6b5e56);
+}
+
+html.light .pattern-dots {
+  background-image: radial-gradient(rgba(26, 20, 18, 0.04) 1px, transparent 1px);
+}
+
+html.light .cyber-grid {
+  background-image: linear-gradient(rgba(26, 20, 18, 0.035) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(26, 20, 18, 0.035) 1px, transparent 1px);
+}
+
+html.light input,
+html.light textarea {
+  background-color: rgba(26, 20, 18, 0.03) !important;
+  color: #1a1412 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #8a7e76 !important;
+}
+
+html.light .bg-white\/5 {
+  background-color: rgba(26, 20, 18, 0.04) !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(26, 20, 18, 0.07) !important;
+}
+
+html.light .bg-white\/\[0\.02\] {
+  background-color: rgba(26, 20, 18, 0.02) !important;
+}
+
+/* Hide horizontal scrollbar helper */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

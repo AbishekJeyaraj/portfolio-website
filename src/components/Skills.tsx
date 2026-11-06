@@ -53,7 +53,7 @@ const SKILL_CATEGORIES = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative z-10 w-full py-32 px-4 md:px-8 border-t border-border">
+    <section id="skills" className="relative z-10 w-full py-24 sm:py-32 px-4 md:px-8 border-t border-black/10 dark:border-white/10">
       
       <div className="max-w-7xl mx-auto">
         
@@ -69,31 +69,35 @@ export default function Skills() {
               transition={{ duration: 0.8, delay: catIdx * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col"
             >
-              <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
+              <div className="flex items-center gap-4 mb-8 pb-4 border-b border-black/10 dark:border-white/10">
                 {category.icon}
-                <h3 className="font-mono text-sm font-bold text-primary tracking-[0.2em] uppercase">
+                <h3 className="font-mono text-sm font-bold text-gray-900 dark:text-white tracking-[0.2em] uppercase">
                   {category.title}
                 </h3>
               </div>
               
               <div className="flex flex-col gap-4">
-                {category.skills.map((skill, idx) => (
-                  <div 
+                {category.skills.map((skill) => (
+                  <motion.div 
                     key={skill.name} 
-                    className="group relative glass p-5 rounded-2xl hover:border-accent/50 hover:bg-white/[0.02] transition-all duration-500 cursor-default overflow-hidden"
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="group relative bg-white/85 dark:bg-[#141b24]/80 backdrop-blur-md p-5 rounded-2xl border border-black/10 dark:border-white/10 hover:border-[#f59e0b]/50 dark:hover:border-[#f59e0b]/50 hover:bg-white dark:hover:bg-[#1a2330] transition-all duration-300 cursor-pointer overflow-hidden shadow-xs hover:shadow-lg"
                   >
-                    <div className="absolute inset-0 bg-accent/5 translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-500 ease-out pointer-events-none" />
+                    <div className="absolute inset-0 bg-[#f59e0b]/5 translate-y-[100%] group-hover:translate-y-[0%] transition-transform duration-500 ease-out pointer-events-none" />
                     
                     <div className="relative z-10 flex justify-between items-center mb-2">
-                      <span className="font-sans font-bold text-primary text-base">{skill.name}</span>
-                      <span className="font-mono text-[9px] text-accent uppercase tracking-widest bg-accent/10 px-2.5 py-1 rounded-full font-bold">
+                      <span className="font-sans font-bold text-gray-900 dark:text-white text-base group-hover:text-[#f59e0b] transition-colors">
+                        {skill.name}
+                      </span>
+                      <span className="font-mono text-[9px] text-[#ea580c] dark:text-[#f59e0b] uppercase tracking-widest bg-[#f59e0b]/15 px-2.5 py-1 rounded-full font-bold border border-[#f59e0b]/30">
                         {skill.exp}
                       </span>
                     </div>
-                    <p className="relative z-10 text-secondary text-sm font-sans mt-2 group-hover:text-primary/80 transition-colors duration-300">
+                    <p className="relative z-10 text-gray-600 dark:text-gray-300 text-sm font-sans mt-2 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
                       {skill.desc}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

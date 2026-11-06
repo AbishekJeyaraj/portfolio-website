@@ -7,15 +7,28 @@ interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   children: React.ReactNode;
   className?: string;
   href?: string;
+  target?: string;
+  rel?: string;
+  as?: "button" | "a" | "div";
 }
 
-export default function MagneticButton({ children, className = "", href, ...props }: MagneticButtonProps) {
+export default function MagneticButton({
+  children,
+  className = "",
+  href,
+  target,
+  rel,
+  as,
+  type = "button",
+  ...props
+}: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e
-    const { height, width, left, top } = ref.current!.getBoundingClientRect()
+    if (!ref.current) return
+    const { height, width, left, top } = ref.current.getBoundingClientRect()
     const middleX = clientX - (left + width / 2)
     const middleY = clientY - (top + height / 2)
     setPosition({ x: middleX * 0.2, y: middleY * 0.2 })
@@ -35,6 +48,9 @@ export default function MagneticButton({ children, className = "", href, ...prop
     </motion.div>
   )
 
+  const isAnchor = as === "a" || (!as && !!href)
+  const isDiv = as === "div"
+
   return (
     <div
       ref={ref}
@@ -42,12 +58,16 @@ export default function MagneticButton({ children, className = "", href, ...prop
       onMouseLeave={reset}
       className="inline-block relative z-10"
     >
-      {href ? (
-        <a href={href} className="inline-block">
+      {isAnchor ? (
+        <a href={href} target={target} rel={rel} className="inline-block">
           {content}
         </a>
+      ) : isDiv ? (
+        <div className="inline-block">
+          {content}
+        </div>
       ) : (
-        <button {...props}>
+        <button type={type} {...props}>
           {content}
         </button>
       )}

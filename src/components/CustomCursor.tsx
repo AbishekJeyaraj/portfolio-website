@@ -1,17 +1,19 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useSyncExternalStore } from "react"
 import { motion } from "framer-motion"
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  const isTouch = useSyncExternalStore(
+    () => () => {},
+    () => window.matchMedia("(pointer: coarse)").matches,
+    () => true
+  )
 
   useEffect(() => {
-    // Only show on non-touch devices
-    if (window.matchMedia("(pointer: coarse)").matches) return
-    setIsVisible(true)
+    if (isTouch) return
 
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
@@ -38,14 +40,14 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition)
       window.removeEventListener("mouseover", handleMouseOver)
     }
-  }, [])
+  }, [isTouch])
 
-  if (!isVisible) return null
+  if (isTouch) return null
 
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-[#f2602c] rounded-full pointer-events-none z-[9999] shadow-[0_0_10px_#f2602c] hidden md:block"
+        className="fixed top-0 left-0 w-3 h-3 bg-[#f59e0b] rounded-full pointer-events-none z-[9999] shadow-[0_0_12px_#f59e0b] hidden md:block"
         animate={{
           x: mousePosition.x - 6,
           y: mousePosition.y - 6,
@@ -54,12 +56,12 @@ export default function CustomCursor() {
         transition={{ type: "spring", stiffness: 1000, damping: 28, mass: 0.1 }}
       />
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border border-[#f2602c]/50 rounded-full pointer-events-none z-[9998] hidden md:block"
+        className="fixed top-0 left-0 w-10 h-10 border border-[#f59e0b]/50 rounded-full pointer-events-none z-[9998] hidden md:block"
         animate={{
           x: mousePosition.x - 20,
           y: mousePosition.y - 20,
           scale: isHovering ? 1.5 : 1,
-          backgroundColor: isHovering ? 'rgba(242, 96, 44, 0.1)' : 'transparent'
+          backgroundColor: isHovering ? 'rgba(245, 158, 11, 0.12)' : 'rgba(245, 158, 11, 0)'
         }}
         transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.5 }}
       />

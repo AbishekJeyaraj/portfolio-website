@@ -16,7 +16,7 @@ export default function SectionHeading({ title, subtitle, align = "center" }: Se
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-mono text-accent text-sm tracking-[0.2em] uppercase font-bold mb-4 block"
+          className="font-mono text-[#ea580c] dark:text-[#f59e0b] text-sm tracking-[0.2em] uppercase font-bold mb-4 block"
         >
           {subtitle}
         </motion.span>
@@ -26,11 +26,11 @@ export default function SectionHeading({ title, subtitle, align = "center" }: Se
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className="text-4xl md:text-6xl font-black uppercase tracking-tighter"
+        className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-950 dark:text-white"
       >
         {title}
       </motion.h2>
-      <div className="w-12 h-1 bg-accent mt-6 rounded-full" />
+      <div className="w-12 h-1 bg-[#f59e0b] mt-6 rounded-full" />
     </div>
   )
 }

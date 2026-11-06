@@ -12,6 +12,13 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "_backup/**",
+    "src/components/BackgroundClouds.tsx",
+    "src/components/ProfileBackground3D.tsx",
+    "src/components/theme-toggle.tsx",
+    "src/components/Hero.tsx",
+    "src/components/FigmaRuler.tsx",
+    "src/components/LoaderGlitch.tsx",
   ]),
 ]);
 

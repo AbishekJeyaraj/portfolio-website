@@ -50,7 +50,7 @@ export default function Hero() {
               className="relative w-full aspect-[3/4] overflow-hidden rounded-t-[200px] border-b-0 shadow-[0_-20px_60px_rgba(242,96,44,0.15)]" 
               style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)" }}
             >
-                <img src="/abishek.jpeg" alt="Abishek Jeyaraj" className="w-full h-full object-cover object-top filter contrast-110 saturate-110" />
+                <img src="/portfolio_profile_transparent.png" alt="Abishek Jeyaraj" className="w-full h-full object-cover object-top filter contrast-110 saturate-110" />
             </div>
           </motion.div>
 
@@ -80,13 +80,14 @@ export default function Hero() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
-                <MagneticButton className="w-full sm:w-auto">
-                  <a href="#projects" className="w-full sm:w-auto bg-accent text-white px-6 py-3.5 rounded-full font-sans font-bold text-sm hover:bg-accent/90 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(242,96,44,0.4)]">
-                    View Work
-                    <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                      <ArrowUpRight className="w-3 h-3" />
-                    </div>
-                  </a>
+                <MagneticButton 
+                  href="#projects" 
+                  className="w-full sm:w-auto bg-accent text-white px-6 py-3.5 rounded-full font-sans font-bold text-sm hover:bg-accent/90 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(242,96,44,0.4)]"
+                >
+                  View Work
+                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                    <ArrowUpRight className="w-3 h-3" />
+                  </div>
                 </MagneticButton>
                 
                 <a href="#contact" className="text-sm font-sans font-bold text-white hover:text-accent transition-colors flex items-center justify-center gap-1 group py-2">

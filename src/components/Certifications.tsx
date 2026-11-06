@@ -32,7 +32,7 @@ const CERTS = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="relative z-10 w-full py-32 px-4 md:px-8 border-t border-border">
+    <section id="certifications" className="relative z-10 w-full py-24 sm:py-32 px-4 md:px-8 border-t border-black/10 dark:border-white/10">
       
       <div className="max-w-7xl mx-auto">
         
@@ -45,32 +45,36 @@ export default function Certifications() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -8, scale: 1.02 }}
               transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative glass p-8 rounded-3xl hover:border-accent/50 transition-all duration-500 flex flex-col h-full overflow-hidden"
+              className="group relative bg-white/85 dark:bg-[#141b24]/80 backdrop-blur-md p-8 rounded-3xl border border-black/10 dark:border-white/10 hover:border-[#f59e0b]/50 dark:hover:border-[#f59e0b]/50 transition-all duration-500 flex flex-col h-full overflow-hidden shadow-xs hover:shadow-xl cursor-default"
             >
               {/* Subtle hover glow */}
-              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-accent/10 rounded-full blur-[40px] group-hover:bg-accent/20 transition-colors duration-500 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#f59e0b]/10 rounded-full blur-[40px] group-hover:bg-[#f59e0b]/20 transition-colors duration-500 pointer-events-none" />
 
-              <Award className="w-10 h-10 text-accent mb-8" />
+              <Award className="w-10 h-10 text-[#ea580c] dark:text-[#f59e0b] mb-8" />
 
               <div className="flex-grow z-10">
-                <h3 className="text-xl font-sans font-black tracking-tight text-primary uppercase mb-3 group-hover:text-accent transition-colors duration-300">
+                <h3 className="text-xl font-sans font-black tracking-tight text-gray-950 dark:text-white uppercase mb-3 group-hover:text-[#f59e0b] transition-colors duration-300">
                   {cert.name}
                 </h3>
-                <div className="text-secondary font-sans text-sm mb-6">
-                  Issued by <span className="text-primary font-medium">{cert.org}</span>
+                <div className="text-gray-600 dark:text-gray-400 font-sans text-sm mb-6">
+                  Issued by <span className="text-gray-950 dark:text-white font-semibold">{cert.org}</span>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center mt-auto z-10 pt-6 border-t border-border">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-accent font-bold">
+              <div className="flex justify-between items-center mt-auto z-10 pt-6 border-t border-black/10 dark:border-white/10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#ea580c] dark:text-[#f59e0b] font-bold">
                   {cert.date}
                 </span>
-                <MagneticButton>
-                  <a href={cert.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-primary transition-colors duration-300 py-2">
-                    <span className="font-mono text-[10px] uppercase tracking-widest font-bold">View</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                <MagneticButton
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-950 dark:hover:text-white transition-colors duration-300 py-2"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-widest font-bold">View</span>
+                  <ExternalLink className="w-4 h-4" />
                 </MagneticButton>
               </div>
             </motion.div>
